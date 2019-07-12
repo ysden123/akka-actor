@@ -9,7 +9,7 @@ lazy val commonSettings = Seq(
   organization := "com.stulsoft",
   version := "0.0.1",
   javacOptions ++= Seq("-source", "11"),
-  scalaVersion := "2.12.7",
+  scalaVersion := "2.12.8",
   scalacOptions ++= Seq(
     "-feature",
     "-language:implicitConversions",
