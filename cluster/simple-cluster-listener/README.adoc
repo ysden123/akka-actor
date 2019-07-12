@@ -1,0 +1,26 @@
+= Simple cluster listener
+
+See https://doc.akka.io/docs/akka/current/cluster-usage.html?_ga=2.55825195.1211086140.1562940341-1490763741.1562697751#a-simple-cluster-example[A Simple Cluster Example]
+
+== Running
+
+=== In one process
+
+Run command:
+[source,script]
+----
+sbt "runMain com.stulsoft.akka.actor.cluster.SimpleClusterApp"
+----
+
+=== In two processes
+Run command in 1st terminal:
+[source,script]
+----
+sbt "runMain com.stulsoft.akka.actor.cluster.SimpleClusterApp 2551"
+----
+
+Run command in 2nd terminal:
+[source,script]
+----
+sbt "runMain com.stulsoft.akka.actor.cluster.SimpleClusterApp 2552"
+----
