@@ -30,7 +30,7 @@ object SimpleClusterApp extends App with LazyLogging {
         akka.remote.netty.tcp.port=$port
         """).withFallback(ConfigFactory.load())
 
-      logger.info("Port = {}, create actor for config: {}", port, config)
+      logger.debug("Port = {}, create actor for config: {}", port, config)
 
       // Create an Akka system
       val system = ActorSystem("ClusterSystem", config)

@@ -2,25 +2,34 @@
 
 See https://doc.akka.io/docs/akka/current/cluster-usage.html?_ga=2.55825195.1211086140.1562940341-1490763741.1562697751#a-simple-cluster-example[A Simple Cluster Example]
 
+The small program together with its configuration starts an ActorSystem with the Cluster enabled. It joins the cluster and starts an actor that logs some membership events.
+
 == Running
 
 === In one process
 
 Run command:
-[source,script]
-----
-sbt "runMain com.stulsoft.akka.actor.cluster.SimpleClusterApp"
-----
+
+ sbt "runMain com.stulsoft.akka.actor.cluster.SimpleClusterApp"
+
+
+_SimpleClusterApp_ starts three actor systems (cluster members) in the same JVM process.
 
 === In two processes
 Run command in 1st terminal:
-[source,script]
-----
-sbt "runMain com.stulsoft.akka.actor.cluster.SimpleClusterApp 2551"
-----
+
+ sbt "runMain com.stulsoft.akka.actor.cluster.SimpleClusterApp 2551"
+
+2551 corresponds to the port of the first seed-nodes element in the configuration. In the log output you see that the cluster node has been started and changed status to 'Up'.
 
 Run command in 2nd terminal:
-[source,script]
-----
-sbt "runMain com.stulsoft.akka.actor.cluster.SimpleClusterApp 2552"
-----
+
+ sbt "runMain com.stulsoft.akka.actor.cluster.SimpleClusterApp 2552"
+
+2552 corresponds to the port of the second seed-nodes element in the configuration.
+
+Start another node in the third terminal window with the following command:
+
+ sbt "runMain sample.cluster.simple.SimpleClusterApp 0"
+
+Now you don't need to specify the port number, 0 means that it will use a random available port. It joins one of the configured seed nodes. Look at the log output in the different terminal windows.
