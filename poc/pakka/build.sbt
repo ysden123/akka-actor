@@ -3,13 +3,13 @@ lazy val commonSettings = Seq(
   version := "1.2.0",
   scalaVersion := "2.12.8",
   libraryDependencies ++= {
-    val akkaVersion = "2.4.17"
-    val akkaHttpVersion = "10.0.0"
-    val scalacticVersion = "3.0.0"
-    val scalatestVersion = "3.0.0"
-    val scalaLoggingVersion = "3.7.2"
+    val akkaVersion = "2.5.3"
+    val akkaHttpVersion = "10.1.8"
+    val scalacticVersion = "3.0.8"
+    val scalatestVersion = "3.0.8"
+    val scalaLoggingVersion = "3.9.2"
     val logbackClassicVersion = "1.2.3"
-    lazy val typeSafeConfVersion = "1.3.2"
+    lazy val typeSafeConfVersion = "1.3.4"
     Seq(
       "com.typesafe.akka" %% "akka-actor" % akkaVersion,
       "com.typesafe.akka" %% "akka-stream" % akkaVersion,
