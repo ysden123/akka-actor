@@ -5,17 +5,23 @@ See https://doc.akka.io/docs/akka/current/cluster-usage.html?_ga=2.55825195.1211
 A example that illustrates how workers, here named *backend*,
 can detect and register to new master nodes, here named *frontend*.
 
-The example application provides a service to transform text. When some text is sent to one of the frontend services, it will be delegated to one of the backend workers, which performs the transformation job, and sends the result back to the original client. New backend nodes, as well as new frontend nodes, can be added or removed to the cluster dynamically.
+The example application provides a service to transform text. When some text is sent to one of the frontend services,
+it will be delegated to one of the backend workers, which performs the transformation job, and sends the result back
+to the original client. New backend nodes, as well as new frontend nodes, can be added or removed to the cluster
+dynamically.
 
 The backend worker that performs the transformation job is defined in
-link:src/main/scala/com/stulsoft/akka/actor/cluster/TransformeationBackend.scala[TransformationBackend.scala].
+link:src/main/scala/com/stulsoft/akka/actor/cluster/TransformationBackend.scala[TransformationBackend.scala].
 
-Note that the *TransformationBackend* actor subscribes to cluster events to detect new, potential, frontend nodes, and send them a registration message so that they know that they can use the backend worker.
+Note that the *TransformationBackend* actor subscribes to cluster events to detect new, potential, frontend nodes,
+and send them a registration message so that they know that they can use the backend worker.
 
 The frontend that receives user jobs and delegates to one of the registered backend workers is defined in
-link:src/main/scala/com/stulsoft/akka/actor/cluster/TransformeationBackend.scala[TransformationFrontend.scala].
+link:src/main/scala/com/stulsoft/akka/actor/cluster/TransformationFrontend.scala[TransformationFrontend.scala].
 
-Note that the *TransformationFrontend* actor watch the registered backend to be able to remove it from its list of available backend workers. Death watch uses the cluster failure detector for nodes in the cluster, i.e. it detects network failures and JVM crashes, in addition to graceful termination of watched actor.
+Note that the *TransformationFrontend* actor watch the registered backend to be able to remove it from its list of
+available backend workers. Death watch uses the cluster failure detector for nodes in the cluster, i.e. it detects
+network failures and JVM crashes, in addition to graceful termination of watched actor.
 
 == Running
 
@@ -28,7 +34,8 @@ Run command:
 _TransformationApp_ starts 5 actor systems (cluster members) in the same JVM process.
 
 === In many processes
-It can be more interesting to run them in separate processes. Stop the application and run the following commands in separate terminal windows.
+It can be more interesting to run them in separate processes. Stop the application and run the following commands in
+separate terminal windows.
 
 Run command in different terminals:
 
