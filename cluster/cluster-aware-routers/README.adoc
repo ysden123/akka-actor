@@ -1,0 +1,94 @@
+= Cluster aware routers
+
+See https://doc.akka.io/docs/akka/current/cluster-usage.html?_ga=2.55825195.1211086140.1562940341-1490763741.1562697751#a-simple-cluster-example[A Simple Cluster Example]
+
+== Cluster Aware Routers
+
+All http://doc.akka.io/docs/akka/2.5/scala/routing.html[routers] can be made aware of member nodes in the cluster,
+i.e. deploying new routees or looking up routees on nodes in the cluster. When a node becomes unreachable or leaves
+the cluster the routees of that node are automatically unregistered from the router. When new nodes join the cluster
+additional routees are added to the router, according to the configuration. Routees are also added when a node becomes
+reachable again, after having been unreachable.
+
+You can read more about cluster aware routers in the http://doc.akka.io/docs/akka/2.5/scala/cluster-usage.html#Cluster_Aware_Routers[documentation].
+
+Let's take a look at a few samples that make use of cluster aware routers.
+
+== Router Example with Group of Routees
+
+Let's take a look at how to use a cluster aware router with a group of routees, i.e. a router which does not create
+its routees but instead forwards incoming messages to a given set of actors created elsewhere.
+
+The example application provides a service to calculate statistics for a text. When some text is sent to the service
+it splits it into words, and delegates the task to count number of characters in each word to a separate worker,
+a routee of a router. The character count for each word is sent back to an aggregator that calculates the average
+number of characters per word when all results have been collected.
+
+Open link:src/main/scala/com/stulsoft/akka/actor/cluster/StatsMessages.scala[StatsMessages.scala]. It defines the messages
+that are sent between the actors.
+
+The worker that counts number of characters in each word is defined
+in link:src/main/scala/com/stulsoft/akka/actor/cluster/StatsWorker.scala[StatsWorker.scala].
+
+The service that receives text from users and splits it up into words, delegates to workers and aggregates is
+defined in link:src/main/scala/com/stulsoft/akka/actor/cluster/StatsService.scala[StatsService.scala].
+
+Note, nothing cluster specific so far, just plain actors.
+
+All nodes start *StatsService* and *StatsWorker* actors. Remember, routees are the workers in this case.
+
+Open link:src/main/resources/stats1.conf[stats1.conf]. The router is configured with *routees.paths*.
+This means that user requests can be sent to *StatsService* on any node and it will use *StatsWorker* on all nodes.
+
+To run this sample, type
+
+  sbt "runMain com.stulsoft.akka.actor.cluster.StatsSample"
+
+if it is not already started.
+
+StatsSample starts 4 actor systems (cluster members) in the same JVM process.
+It can be more interesting to run them in separate processes.
+Stop the application and run the following commands in separate terminal windows.
+
+    sbt "runMain com.stulsoft.akka.actor.cluster.StatsSample 2551"
+
+    sbt "runMain com.stulsoft.akka.actor.cluster.StatsSample 2552"
+
+    sbt "runMain com.stulsoft.akka.actor.cluster.StatsSampleClient"
+
+    sbt "runMain com.stulsoft.akka.actor.cluster.StatsSample 0"
+
+== Router Example with Pool of Remote Deployed Routees
+
+Let's take a look at how to use a cluster aware router on single master node that creates and deploys workers
+instead of looking them up.
+
+Open StatsSampleOneMaster.scala. To keep track of a single master we use the *Cluster Singleton*
+in the contrib module. The *ClusterSingletonManager* is started on each node.
+
+We also need an actor on each node that keeps track of where current single master exists and delegates jobs
+to the *StatsService*. That is provided by the *ClusterSingletonProxy*.
+
+The *ClusterSingletonProxy* receives text from users and delegates to the current *StatsService*,
+the single master. It listens to cluster events to lookup the *StatsService* on the oldest node.
+
+All nodes start *ClusterSingletonProxy* and the *ClusterSingletonManager*.
+The router is now configured in link:src/main/resources/stats2.conf[stats2.conf].
+
+To run this sample, type
+
+  sbt "runMain com.stulsoft.akka.actor.cluster.StatsSampleOneMaster"
+
+if it is not already started.
+
+StatsSampleOneMaster starts 4 actor systems (cluster members) in the same JVM process.
+It can be more interesting to run them in separate processes. Stop the application and run
+the following commands in separate terminal windows.
+
+  sbt "runMain com.stulsoft.akka.actor.cluster.StatsSampleOneMaster 2551"
+
+  sbt "runMain com.stulsoft.akka.actor.cluster.StatsSampleOneMaster 2552"
+
+  sbt "runMain com.stulsoft.akka.actor.cluster.StatsSampleOneMasterClient"
+
+  sbt "runMain com.stulsoft.akka.actor.cluster.StatsSampleOneMaster 0"
