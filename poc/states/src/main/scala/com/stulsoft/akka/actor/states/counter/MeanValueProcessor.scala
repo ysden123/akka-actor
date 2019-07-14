@@ -17,7 +17,7 @@ class MeanValueProcessor(threshold: Int) extends Actor with ActorLogging {
 
   override def receive: Receive = {
     case AddNumber(number) =>
-      //      log.info("number = {}", number)
+      log.info("number = {}", number)
       if (storage.add(number) >= threshold) {
         log.info("Storage: {}", storage.list())
         log.info("Average: {}", storage.average())
