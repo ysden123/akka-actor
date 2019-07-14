@@ -1,0 +1,4 @@
+= states
+
+Demonstrates purely function state
+
