@@ -39,4 +39,10 @@ lazy val fsm2 = project.in(file("fsm2"))
     name := "fsm2"
   )
 
+lazy val lightSwitch = project.in(file("light-switch"))
+    .settings(commonSettings)
+    .settings(
+      name := "light-switch"
+    )
+
 parallelExecution in Test := true
