@@ -2,3 +2,8 @@
 
 Demonstrates purely function state
 
+== With _become_ method
+Package _become_ demonstrates purely function state with _become_
+
+== Without _become_ method
+Package _storage_ demonstrates purely function state without _become_

@@ -2,7 +2,7 @@
  * Copyright (c) 2019. Yuriy Stul
  */
 
-package com.stulsoft.akka.actor.states.counter
+package com.stulsoft.akka.actor.states.counter.storage
 
 import scala.collection.mutable.ListBuffer
 

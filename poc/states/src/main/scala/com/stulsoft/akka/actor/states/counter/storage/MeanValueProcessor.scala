@@ -2,11 +2,12 @@
  * Copyright (c) 2019. Yuriy Stul
  */
 
-package com.stulsoft.akka.actor.states.counter
+package com.stulsoft.akka.actor.states.counter.storage
 
 import akka.actor.{Actor, ActorLogging}
+import com.stulsoft.akka.actor.states.counter.{AddNumber, GetRest}
 
-/** Demonstrates purely function state
+/** Demonstrates purely function state without <i>become</i>
   *
   * @author Yuriy Stul
   */
