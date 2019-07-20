@@ -10,7 +10,7 @@ lazy val logbackClassicVersion = "1.2.3"
 lazy val commonSettings = Seq(
   organization := "com.stulsoft",
   version := "0.0.1",
-  scalaVersion := "2.12.8",
+  scalaVersion := "2.13.0",
   scalacOptions ++= Seq(
     "-feature",
     "-language:implicitConversions",
@@ -28,8 +28,7 @@ lazy val commonSettings = Seq(
     "com.typesafe" % "config" % typeSafeConfVersion,
     "com.typesafe.akka" %% "akka-testkit" % akkaVersion % "test",
     "com.typesafe.akka" %% "akka-multi-node-testkit" % akkaVersion % "test",
-    "org.scalatest" %% "scalatest" % scalatestVersion % "test",
-    "org.scalamock" %% "scalamock-scalatest-support" % scalaMockTestSupportVersion % "test"
+    "org.scalatest" %% "scalatest" % scalatestVersion % "test"
   )
 )
 
