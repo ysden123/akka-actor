@@ -24,7 +24,7 @@ class MeanValueProcessor(threshold: Int) extends Actor with ActorLogging {
         log.info("Average: {}", storage.average())
         storage.clear()
       }
-    case _: GetRest =>
+    case GetRest =>
       log.info("Rest: {}", storage.list())
   }
 }

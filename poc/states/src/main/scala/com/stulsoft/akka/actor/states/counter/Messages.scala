@@ -5,4 +5,6 @@
 package com.stulsoft.akka.actor.states.counter
 
 case class AddNumber(number:Int)
-case class GetRest()
+case object GetRest
+case object RefreshCache
+case object GetCache

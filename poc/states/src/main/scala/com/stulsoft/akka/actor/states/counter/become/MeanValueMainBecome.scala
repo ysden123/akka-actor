@@ -44,7 +44,7 @@ object MeanValueMainBecome extends LazyLogging {
     schedule(first2, last2)
     count.await()
     system.scheduler.scheduleOnce(0.seconds) {
-      processor ! GetRest()
+      processor ! GetRest
       system.scheduler.scheduleOnce(1.seconds) {
         system.terminate()
 

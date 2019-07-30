@@ -24,7 +24,7 @@ class MeanValueProcessor(threshold: Int) extends Actor with ActorLogging {
         newNumbers = NumberCollection()
       }
       context.become(updated(newNumbers))
-    case _: GetRest =>
+    case GetRest =>
       log.info("Rest: {}", numbers.numbers)
   }
 

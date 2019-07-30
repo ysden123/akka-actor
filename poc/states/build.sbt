@@ -27,7 +27,7 @@ lazy val commonSettings = Seq(
   )
 )
 
-lazy val clusterAwareRouters = (project in file("."))
+lazy val states = (project in file("."))
   .settings(commonSettings: _*)
   .settings(
     name := "states"
