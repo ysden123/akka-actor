@@ -1,14 +1,17 @@
 lazy val commonSettings = Seq(
   organization := "com.stulsoft",
-  version := "1.2.0",
-  scalaVersion := "2.12.8",
+  version := "1.2.1",
+  scalaVersion := "2.13.0",
   libraryDependencies ++= {
-    val akkaVersion = "2.5.21"
-    val akkaHttpVersion = "10.1.7"
+    val akkaVersion = "2.5.23"
+    val akkaHttpVersion = "10.1.9"
     val scalaLoggingVersion = "3.9.2"
     val logbackClassicVersion = "1.2.3"
-    lazy val typeSafeConfVersion = "1.3.3"
+    lazy val typeSafeConfVersion = "1.3.4"
+    lazy val json4sVersion = "3.6.7"
     Seq(
+      "org.json4s" %% "json4s-native" % json4sVersion,
+      "org.json4s" %% "json4s-jackson" % json4sVersion,
       "com.typesafe.akka" %% "akka-actor" % akkaVersion,
       "com.typesafe.akka" %% "akka-stream" % akkaVersion,
       "com.typesafe.akka" %% "akka-http" % akkaHttpVersion,
@@ -20,8 +23,8 @@ lazy val commonSettings = Seq(
   }
 )
 
-lazy val pakka = (project in file("."))
+lazy val akkaHttpServer = (project in file("."))
   .settings(commonSettings: _*)
   .settings(
-    name := "pakka"
+    name := "akka-http-server"
   )
