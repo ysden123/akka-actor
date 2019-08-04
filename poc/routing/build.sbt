@@ -1,16 +1,15 @@
 import sbt.Keys.libraryDependencies
 
-lazy val akkaVersion = "2.4.17"
-lazy val scalatestVersion = "3.0.4"
-lazy val scalaMockTestSupportVersion = "3.6.0"
-lazy val typeSafeConfVersion = "1.3.2"
-lazy val scalaLoggingVersion = "3.7.2"
+lazy val akkaVersion = "2.5.23"
+lazy val scalatestVersion = "3.0.8"
+lazy val typeSafeConfVersion = "1.3.4"
+lazy val scalaLoggingVersion = "3.9.2"
 lazy val logbackClassicVersion = "1.2.3"
 
 lazy val commonSettings = Seq(
   organization := "com.stulsoft",
-  version := "0.0.2",
-  scalaVersion := "2.12.8",
+  version := "0.0.3",
+  scalaVersion := "2.13.0",
   scalacOptions ++= Seq(
     "-feature",
     "-language:implicitConversions",
@@ -24,8 +23,7 @@ lazy val commonSettings = Seq(
     "com.typesafe" % "config" % typeSafeConfVersion,
     "com.typesafe.akka" %% "akka-testkit" % akkaVersion % "test",
     "com.typesafe.akka" %% "akka-multi-node-testkit" % akkaVersion % "test",
-    "org.scalatest" %% "scalatest" % scalatestVersion % "test",
-    "org.scalamock" %% "scalamock-scalatest-support" % scalaMockTestSupportVersion % "test"
+    "org.scalatest" %% "scalatest" % scalatestVersion % "test"
   )
 )
 lazy val poolRouter = project.in(file("pool-router"))

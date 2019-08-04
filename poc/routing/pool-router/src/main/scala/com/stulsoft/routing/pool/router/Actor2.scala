@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017. Yuriy Stul
+ * Copyright (c) 2019. Yuriy Stul
  */
 
 package com.stulsoft.routing.pool.router
@@ -11,19 +11,19 @@ import scala.util.Random
 /**
  * @author Yuriy Stul
  */
-class Actor1 extends Actor with ActorLogging {
+class Actor2  extends Actor with ActorLogging {
   private val n = self.path.name
-
   override def receive: Receive = {
     case x =>
-      log.info(s"Actor1 ($n): received $x")
+      log.info(s"Actor2 ($n): received $x")
       Thread.sleep(Random.nextInt(1000))
-      log.info(s"Actor1 ($n): completed msg handling")
+      log.info(s"Actor2 ($n): completed msg handling")
+      sender ! s"Done by Actor2 ($n)"
   }
 
   override def preStart(): Unit = {
     super.preStart()
-    log.info(s"Staring Actor1 ($n)")
+    log.info(s"Staring Actor2 ($n)")
   }
 
   override def postStop(): Unit = {

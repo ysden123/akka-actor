@@ -5,14 +5,18 @@
 package com.stulsoft.routing.pool.router
 
 import akka.actor.{ActorSystem, Props}
+import akka.pattern.ask
 import akka.routing.FromConfig
+import akka.util.Timeout
 import com.typesafe.scalalogging.LazyLogging
 
+import scala.concurrent.ExecutionContext
+import scala.concurrent.duration._
 import scala.io.StdIn
 
 /**
-  * @author Yuriy Stul
-  */
+ * @author Yuriy Stul
+ */
 object Main extends App with LazyLogging {
   start()
 
@@ -20,18 +24,22 @@ object Main extends App with LazyLogging {
     logger.info("Started Main")
     val system = ActorSystem("poolRouterSystem")
     // @formatter:off
-    val router = system.actorOf(            // Defines router using configuration
+    val router1 = system.actorOf(           // Defines router using configuration
       FromConfig.props(Props(new Actor1)),  // How router should create routees
-      "poolRouter"                          // Name of router (see conf file)
+      "poolRouter1"                 // Name of router (see conf file)
+    )
+
+    val router2 = system.actorOf(            // Defines router using configuration
+      FromConfig.props(Props(new Actor2)),   // How router should create routees
+      "poolRouter2"                  // Name of router (see conf file)
     )
     // @formatter:on
 
-    router ! "msg 1"
-    router ! "msg 2"
-    router ! "msg 3"
-    router ! "msg 4"
-    router ! "msg 5"
-    router ! "msg 6"
+    (1 to 10).foreach(i => router1 ! s"msg $i")
+
+    implicit val timeout: Timeout = Timeout(5.seconds)
+    implicit val ec: ExecutionContext = system.dispatchers.defaultGlobalDispatcher
+    (1 to 10).foreach(i => (router2 ? s"msg $i").foreach { result => logger.info(s"Received reply $result") })
 
     println("Enter line to exit")
     StdIn.readLine()

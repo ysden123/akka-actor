@@ -24,4 +24,10 @@ class Actor1 extends Actor with ActorLogging {
     super.preStart()
     log.info(s"Staring Actor1 ($n)")
   }
+
+
+  override def postStop(): Unit = {
+    super.postStop()
+    log.info(s"Stopped ${self.path.name}")
+  }
 }

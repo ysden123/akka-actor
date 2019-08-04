@@ -11,23 +11,18 @@ import com.typesafe.scalalogging.LazyLogging
 import scala.io.StdIn
 
 /**
-  * @author Yuriy Stul
-  */
+ * @author Yuriy Stul
+ */
 object Main extends App with LazyLogging {
   start()
 
   def start(): Unit = {
     logger.info("Started Main")
     val system = ActorSystem("groupRouterSystem")
-    system.actorOf(Props(new Actor1Creator(2)), "Creator") // Creates routee creator
-    val router = system.actorOf(FromConfig.props(),"groupRouter") // Creates a group router
+    system.actorOf(Props(new Actor1Creator(2)), "Actor1Creator") // Creates route creator
+    val router = system.actorOf(FromConfig.props(), "groupRouter") // Creates a group router
 
-    router ! "msg 1"
-    router ! "msg 2"
-    router ! "msg 3"
-    router ! "msg 4"
-    router ! "msg 5"
-    router ! "msg 6"
+    (1 to 10).foreach(i => router ! s"msg $i")
 
     println("Enter line to exit")
     StdIn.readLine()

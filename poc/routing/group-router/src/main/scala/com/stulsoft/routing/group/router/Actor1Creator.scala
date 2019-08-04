@@ -18,4 +18,9 @@ class Actor1Creator(nrActors: Int) extends Actor with ActorLogging {
   override def receive: Receive = {
     case _ =>
   }
+
+  override def postStop(): Unit = {
+    super.postStop()
+    log.info(s"Stopped ${self.path.name}")
+  }
 }
