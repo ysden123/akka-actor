@@ -14,12 +14,12 @@ import com.typesafe.scalalogging.LazyLogging
 import scala.concurrent.{ExecutionContextExecutor, Future}
 import scala.util.{Failure, Success}
 
-/** Future Based Variant of Akka HTTP Client.
-  * <p>
-  * See [[https://doc.akka.io/docs/akka-http/current/client-side/request-level.html#future-based-variant Future-Based Variant]]
-  *
-  * @author Yuriy Stul
-  */
+/** Future based variant of Akka HTTP client
+ * <p>
+ * See [[https://doc.akka.io/docs/akka-http/current/client-side/request-level.html#future-based-variant Future-Based Variant]]
+ *
+ * @author Yuriy Stul
+ */
 object FutureBasedVariant extends App with LazyLogging {
   implicit val system: ActorSystem = ActorSystem()
   implicit val materializer: ActorMaterializer = ActorMaterializer()
