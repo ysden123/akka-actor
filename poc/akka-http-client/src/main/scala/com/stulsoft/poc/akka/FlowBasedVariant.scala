@@ -27,11 +27,11 @@ object FlowBasedVariant extends App with LazyLogging {
   val connectionFlow =
     Http().outgoingConnectionHttps("www.smugmug.com")
   val request = HttpRequest(uri = "/")
-  val responceFuture = Source.single(request)
+  val responseFuture = Source.single(request)
     .via(connectionFlow)
     .runWith(Sink.head)
 
-  responceFuture.andThen {
+  responseFuture.andThen {
     case Success(response) =>
       response
         .entity
@@ -41,12 +41,14 @@ object FlowBasedVariant extends App with LazyLogging {
           case Success(body) =>
             logger.info(s"response: $body")
             logger.info(s"Status code: ${response.status}")
-            response.discardEntityBytes()
-            exit(0)
           case Failure(ex) =>
             logger.error(s"Failed getting body: ${ex.getMessage}")
+        }
+        .andThen {
+          case _ =>
             response.discardEntityBytes()
-            exit(-1)
+            materializer.shutdown()
+            system.terminate()
         }
     case Failure(ex) =>
       logger.error(s"Failed getting response: ${ex.getMessage}")
@@ -55,6 +57,7 @@ object FlowBasedVariant extends App with LazyLogging {
 
   def exit(code: Int): Unit = {
     materializer.shutdown()
+    system.terminate()
     sys.exit(code)
   }
 

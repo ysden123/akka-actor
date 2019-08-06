@@ -8,19 +8,12 @@
         <Console name="Console" target="SYSTEM_OUT">
             <PatternLayout pattern="%d{YYYY-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
         </Console>
-        <RollingFile
-                name="File"
-                fileName="log/akka-http-client.log"
-                filePattern="log/akka-http-client.%i.log">
+        <File name="File" fileName="log/akka-http-client.log" append="false">
             <PatternLayout pattern="%d{YYYY-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
-            <Policies>
-                <SizeBasedTriggeringPolicy size="10MB" />
-            </Policies>
-            <DefaultRolloverStrategy max="5" />
-        </RollingFile>
+        </File>
     </Appenders>
     <Loggers>
-        <Root level="info">
+        <Root level="debug">
             <AppenderRef ref="Console" />
             <AppenderRef ref="File" />
         </Root>
