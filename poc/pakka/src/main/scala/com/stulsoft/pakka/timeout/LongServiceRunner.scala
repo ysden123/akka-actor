@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019. Yuriy Stul
+ * Copyright (c) 2019. StulSoft
  */
 
 package com.stulsoft.pakka.timeout
