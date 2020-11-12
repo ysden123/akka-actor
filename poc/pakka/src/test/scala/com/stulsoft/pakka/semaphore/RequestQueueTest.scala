@@ -1,13 +1,15 @@
 package com.stulsoft.pakka.semaphore
 
 import akka.actor.{ActorSystem, Props}
-import org.scalatest.{BeforeAndAfterAll, FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.BeforeAndAfterAll
+import org.scalatest.matchers.should.Matchers
 
 /**
   * Created by Yuriy Stul on 10/11/2016.
   */
-class RequestQueueTest extends FlatSpec with Matchers with BeforeAndAfterAll {
-  val system = ActorSystem("system")
+class RequestQueueTest extends AnyFlatSpec with Matchers with BeforeAndAfterAll {
+  val system: ActorSystem = ActorSystem("system")
   val semaphoreActor = system.actorOf(Props(new SemaphoreActor(5)), "semaphoreActor")
 
   override def beforeAll(): Unit = {

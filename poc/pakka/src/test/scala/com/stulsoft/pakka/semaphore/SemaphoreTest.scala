@@ -3,17 +3,18 @@ package com.stulsoft.pakka.semaphore
 import java.util.concurrent.TimeoutException
 
 import com.typesafe.scalalogging.LazyLogging
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
-import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
 import scala.concurrent.duration._
 import scala.util.{Failure, Success}
 
 /**
   * Created by Yuriy Stul on 10/12/2016.
   */
-class SemaphoreTest extends FlatSpec with Matchers with LazyLogging {
+class SemaphoreTest extends AnyFlatSpec with Matchers with LazyLogging {
   behavior of "Semaphore"
   "apply" should "create new instance" in {
     val s = Semaphore(5, 10.seconds)
@@ -97,7 +98,7 @@ class SemaphoreTest extends FlatSpec with Matchers with LazyLogging {
       case Success(v) => fail("missing timeout exception")
       case Failure(e) =>
         info("Happened TimeoutException")
-        e shouldBe a [TimeoutException]
+        e shouldBe a[TimeoutException]
     }
   }
 

@@ -3,6 +3,8 @@
 
 **/target/
 
+**/.bsp/
+
 *.iml
 
 **/\.idea/

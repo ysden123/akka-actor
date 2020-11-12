@@ -18,10 +18,11 @@ class LongService extends Actor with ActorLogging {
     case "test" =>
       log.info("received test")
       implicit val ec: ExecutionContextExecutor = ExecutionContext.global
-      context.system.scheduler.scheduleOnce(4.seconds, () => {
+
+      context.system.scheduler.scheduleOnce(4.seconds){
         log.info("Sending reply...")
         sender() ! "Done"
-      })
+      }
     case _ => log.info("received unknown message")
   }
 }

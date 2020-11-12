@@ -1,13 +1,13 @@
 package com.stulsoft.pakka.semaphore
 
 import akka.actor.{ActorSystem, Props}
-import org.scalatest.{FlatSpec, Matchers}
-
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
 /**
   * Created by Yuriy Stul on 10/12/2016.
   */
-class SemaphoreActorTest extends FlatSpec with Matchers {
+class SemaphoreActorTest extends AnyFlatSpec with Matchers {
   behavior of "SemaphoreActor"
   "create instance" should "initialize RequestQueue" in {
     val system = ActorSystem("system")

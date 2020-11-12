@@ -1,11 +1,12 @@
 package com.stulsoft.pakka.semaphore
 
+import akka.Done
 import akka.actor.{ActorSystem, Props}
 import akka.util.Timeout
 import akka.pattern.ask
 import com.typesafe.scalalogging.LazyLogging
 
-import scala.concurrent.{Await, Future, TimeoutException}
+import scala.concurrent.{Await, ExecutionContextExecutor, Future, TimeoutException}
 import scala.concurrent.duration._
 import scala.util.{Failure, Success, Try}
 
@@ -28,15 +29,15 @@ class Semaphore(capacity: Int, maxTimeout: FiniteDuration) extends LazyLogging {
     * Acquires a resource.
     * @return Success(Unit), if available resource exists; otherwise - Failure(TimeoutException)
     */
-  def acquire(): Try[Unit] = {
-    implicit val timeout = Timeout(maxTimeout)
-    implicit val ec = system.dispatcher
+  def acquire(): Try[Done] = {
+    implicit val timeout: Timeout = Timeout(maxTimeout)
+    implicit val ec: ExecutionContextExecutor = system.dispatcher
     logger.info("==>Semaphore.acquire")
     val future: Future[Boolean] = ask(semaphoreActor, AcquireMessage).mapTo[Boolean]
     try {
       val result = Await.result(future, maxTimeout)
       logger.info("result is {}", result)
-      Success(Unit) // OK
+      Success(Done) // OK
     } catch {
       case e: TimeoutException =>
         logger.error("Timeout exception. {}", e.getMessage)
