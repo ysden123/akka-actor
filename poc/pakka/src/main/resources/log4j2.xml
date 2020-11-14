@@ -19,5 +19,6 @@
         </Root>
         <Logger name="akka.actor" level="error"/>
         <Logger name="akka.event" level="error"/>
+        <Logger name="akka.serialization" level="error"/>
     </Loggers>
 </Configuration>
