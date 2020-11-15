@@ -17,7 +17,7 @@ case object AcquireMessage
   * The message to release a resource
   *
   */
-//case class ReleaseMessage(request: ResourceRequest)
+//case class ReleaseMessage(future: ResourceRequest)
 case object ReleaseMessage
 
 /**

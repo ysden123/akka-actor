@@ -13,7 +13,7 @@ import com.typesafe.scalalogging.LazyLogging
 
 import scala.concurrent.Await
 
-/** Sends request with ask pattern (?)
+/** Sends future with ask pattern (?)
   *
   * @author Yuriy Stul
   */

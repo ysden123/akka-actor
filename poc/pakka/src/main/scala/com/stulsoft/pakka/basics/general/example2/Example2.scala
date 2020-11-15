@@ -44,7 +44,7 @@ class MainActor extends Actor with ActorLogging {
 
   def receive = {
     case Start =>
-      mapActor ! "dummy request"
+      mapActor ! "dummy future"
       mapActor ! SetRequest("key", "value")
       val respF = mapActor ? GetRequest("key")
       respF pipeTo self

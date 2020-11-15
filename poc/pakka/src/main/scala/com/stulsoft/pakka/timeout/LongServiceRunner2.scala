@@ -12,7 +12,7 @@ import com.typesafe.scalalogging.LazyLogging
 import scala.concurrent.duration._
 import scala.concurrent.{Await, Future}
 
-/** Sends request with ask
+/** Sends future with ask
   *
   * @author Yuriy Stul
   */

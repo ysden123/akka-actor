@@ -11,7 +11,7 @@ import scala.concurrent.Future
   * this is where the data flowing through the stream
   * originates from. A source can be anything that
   * can generate messages, like a collection,
-  * database query or HTTP request.
+  * database query or HTTP future.
   * Akka Streams allows creating sources from a variety of data producing entities.
   *
   * See [[https://opencredo.com/introduction-to-akka-streams-getting-started/]]
