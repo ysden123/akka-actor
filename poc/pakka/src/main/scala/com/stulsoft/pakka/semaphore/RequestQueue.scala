@@ -5,26 +5,26 @@ import akka.actor.ActorRef
 import scala.collection.immutable.Queue
 
 /**
-  * Resource request
+  * Resource future
   *
-  * Contains sender of a request.
+  * Contains sender of a future.
   *
-  * @param sender sender of the request.
+  * @param sender sender of the future.
   */
 case class ResourceRequest(sender: ActorRef)
 
 /**
   * Created by Yuriy Stul on 10/11/2016.
   *
-  * Manages request queue
+  * Manages future queue
   */
 class RequestQueue {
   private var queue: Queue[ResourceRequest] = Queue[ResourceRequest]()
 
   /**
-    * Gets a resource request from queue
+    * Gets a resource future from queue
     *
-    * @return the resource request, if exits
+    * @return the resource future, if exits
     */
   def get: Option[ResourceRequest] = {
     if (queue.isEmpty)
@@ -37,12 +37,12 @@ class RequestQueue {
   }
 
   /**
-    * Puts a resource request into queue
+    * Puts a resource future into queue
     *
-    * @param request the resource request to put
+    * @param request the resource future to put
     */
   def put(request: ResourceRequest): Unit = {
-    require(request != null, "request is undefined")
+    require(request != null, "future is undefined")
     queue = queue.enqueue(request)
   }
 }

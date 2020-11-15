@@ -1,10 +1,10 @@
 lazy val commonSettings = Seq(
   organization := "com.stulsoft",
-  version := "1.2.0",
-  scalaVersion := "2.12.8",
+  version := "1.2.1",
+  scalaVersion := "2.13.0",
   libraryDependencies ++= {
-    val akkaVersion = "2.5.3"
-    val akkaHttpVersion = "10.1.8"
+    val akkaVersion = "2.5.25"
+    val akkaHttpVersion = "10.1.9"
     val scalacticVersion = "3.0.8"
     val scalatestVersion = "3.0.8"
     val scalaLoggingVersion = "3.9.2"

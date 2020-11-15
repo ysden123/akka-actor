@@ -36,7 +36,7 @@ class Semaphore(capacity: Int, maxTimeout: FiniteDuration) extends LazyLogging {
     try {
       val result = Await.result(future, maxTimeout)
       logger.info("result is {}", result)
-      Success(Unit) // OK
+      Success() // OK
     } catch {
       case e: TimeoutException =>
         logger.error("Timeout exception. {}", e.getMessage)

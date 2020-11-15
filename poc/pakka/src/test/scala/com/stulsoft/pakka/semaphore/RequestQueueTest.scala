@@ -20,7 +20,7 @@ class RequestQueueTest extends FlatSpec with Matchers with BeforeAndAfterAll {
   }
 
   behavior of "ResourceQueue"
-  "put" should "add new request" in {
+  "put" should "add new future" in {
     val resourceQueue: RequestQueue = new RequestQueue
     resourceQueue.put(ResourceRequest(semaphoreActor))
     val request = resourceQueue.get
@@ -42,7 +42,7 @@ class RequestQueueTest extends FlatSpec with Matchers with BeforeAndAfterAll {
     request.isEmpty should be(true)
   }
 
-  it should "return request for non empty queue" in {
+  it should "return future for non empty queue" in {
     val resourceQueue: RequestQueue = new RequestQueue
     resourceQueue.put(ResourceRequest(semaphoreActor))
     val request = resourceQueue.get
