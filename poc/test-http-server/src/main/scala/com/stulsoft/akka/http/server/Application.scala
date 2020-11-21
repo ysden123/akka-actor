@@ -4,7 +4,7 @@
 
 package com.stulsoft.akka.http.server
 
-import com.stulsoft.scala.tools.resources.ResourceUtils
+import com.stulsoft.scala.tools.resource.ResourceUtils
 import com.typesafe.scalalogging.LazyLogging
 
 /** Runs HTTP server.

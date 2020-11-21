@@ -6,7 +6,7 @@ package com.stulsoft.akka.http.server
 
 import com.typesafe.config.ConfigFactory
 
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 
 /**
   * @author Yuriy Stul
@@ -20,6 +20,7 @@ case class Configuration(fileName: String) {
     .getConfigList("headers")
     .asScala
     .map(conf => Header(conf.getString("name"), conf.getString("value")))
+    .toSeq
 
   override def toString: String = "Configuration:" +
     s" fileName: $fileName" +
