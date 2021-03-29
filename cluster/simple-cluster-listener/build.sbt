@@ -8,9 +8,10 @@ lazy val logbackClassicVersion = "1.2.3"
 lazy val commonSettings = Seq(
   organization := "com.stulsoft",
   version := "0.0.3",
-  scalaVersion := "2.13.4",
+  scalaVersion := "2.13.5",
   scalacOptions ++= Seq(
     "-feature",
+    "-deprecation",
     "-language:implicitConversions",
     "-language:postfixOps"),
   libraryDependencies ++= Seq(

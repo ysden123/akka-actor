@@ -18,7 +18,7 @@ object SimpleClusterApp extends App with LazyLogging {
   if (args.isEmpty)
     startup(Seq("2551", "2552", "0"))
   else
-    startup(args)
+    startup(args.toSeq)
 
   def startup(ports: Seq[String]): Unit = {
     ports foreach { port =>
@@ -35,7 +35,7 @@ object SimpleClusterApp extends App with LazyLogging {
       // Create an Akka system
       val system = ActorSystem("ClusterSystem", config)
       // Create an actor that handles cluster domain events
-      system.actorOf(Props[SimpleClusterListener], name = "clusterListener")
+      system.actorOf(Props[SimpleClusterListener](), name = "clusterListener")
     }
   }
 }
