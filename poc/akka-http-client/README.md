@@ -1,2 +1,2 @@
-# akka-hhtp-client
+# akka-http-client
 Playing with Akka HTTP client

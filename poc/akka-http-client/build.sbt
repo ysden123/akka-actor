@@ -1,22 +1,19 @@
 import sbt.Keys.libraryDependencies
 
-lazy val scalaTestVersion = "3.0.8"
-lazy val scalaCheckVersion = "1.14.0"
-lazy val scalaLoggingVersion = "3.9.2"
-lazy val scalaMockVersion = "4.3.0"
-lazy val loggingVersion = "2.12.0"
-lazy val akkaVersion = "2.5.23"
-lazy val akkaHttpVersion = "10.1.9"
-lazy val json4sVersion = "3.6.7"
-lazy val scalaXmlVersion = "1.2.0"
-lazy val projectVersion = "1.0.1"
+lazy val scalaLoggingVersion = "3.9.3"
+lazy val loggingVersion = "2.14.1"
+lazy val akkaVersion = "2.6.13"
+lazy val akkaHttpVersion = "10.2.4"
+lazy val json4sVersion = "3.6.11"
+lazy val scalaXmlVersion = "1.3.0"
+lazy val projectVersion = "1.0.2"
 lazy val projectName = "akka-http-client"
 
 lazy val commonSettings = Seq(
-  organization := "com.webpals",
+  organization := "com.stulsoft",
   version := projectVersion,
-  javacOptions ++= Seq("-source", "1.8"),
-  scalaVersion := "2.13.0",
+  javacOptions ++= Seq("-source", "11"),
+  scalaVersion := "2.13.5",
   scalacOptions ++= Seq(
     "-feature",
     "-deprecation",
@@ -28,21 +25,13 @@ lazy val commonSettings = Seq(
     "com.typesafe.akka" %% "akka-actor" % akkaVersion,
     "com.typesafe.akka" %% "akka-http" % akkaHttpVersion,
     "com.typesafe.akka" %% "akka-stream" % akkaVersion,
-    "com.typesafe.akka" %% "akka-slf4j" % akkaVersion,
     "com.typesafe.scala-logging" %% "scala-logging" % scalaLoggingVersion,
     "org.apache.logging.log4j" % "log4j-api" % loggingVersion,
     "org.apache.logging.log4j" % "log4j-core" % loggingVersion,
     "org.apache.logging.log4j" % "log4j-slf4j-impl" % loggingVersion,
-    "org.scala-lang.modules" %% "scala-xml" % scalaXmlVersion,
-    "org.scalacheck" %% "scalacheck" % scalaCheckVersion % "test",
-    "org.scalamock" %% "scalamock" % scalaMockVersion % "test",
-    "org.scalatest" %% "scalatest" % scalaTestVersion % "test",
-    "com.typesafe.akka" %% "akka-testkit" % akkaVersion % "test"
+    "org.scala-lang.modules" %% "scala-xml" % scalaXmlVersion
   )
 )
-
-resolvers += "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"
-resolvers += "typesafe" at "http://repo.typesafe.com/typesafe/releases/"
 
 lazy val root = (project in file("."))
   .settings(commonSettings: _*)

@@ -7,22 +7,22 @@ package com.stulsoft.poc.akka
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.model.HttpRequest
-import akka.stream.ActorMaterializer
 import akka.stream.scaladsl.{Sink, Source}
-import com.typesafe.scalalogging.LazyLogging
+import com.typesafe.scalalogging.StrictLogging
 
 import scala.concurrent.ExecutionContextExecutor
-import scala.concurrent.duration._
+import scala.concurrent.duration.DurationInt
 import scala.util.{Failure, Success}
 
 /** Flow based variant of Akka HTTP client
  *
  * @author Yuriy Stul
  */
-object FlowBasedVariant extends App with LazyLogging {
+object FlowBasedVariant extends App with StrictLogging {
   implicit val system: ActorSystem = ActorSystem()
-  implicit val materializer: ActorMaterializer = ActorMaterializer()
   implicit val executionContext: ExecutionContextExecutor = system.dispatcher
+
+  logger.info("==>main")
 
   val connectionFlow =
     Http().outgoingConnectionHttps("www.smugmug.com")
@@ -47,7 +47,6 @@ object FlowBasedVariant extends App with LazyLogging {
         .andThen {
           case _ =>
             response.discardEntityBytes()
-            materializer.shutdown()
             system.terminate()
         }
     case Failure(ex) =>
@@ -56,9 +55,7 @@ object FlowBasedVariant extends App with LazyLogging {
   }
 
   def exit(code: Int): Unit = {
-    materializer.shutdown()
     system.terminate()
     sys.exit(code)
   }
-
 }

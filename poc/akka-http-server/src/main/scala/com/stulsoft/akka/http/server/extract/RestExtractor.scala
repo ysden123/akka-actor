@@ -8,7 +8,6 @@ import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.model._
 import akka.http.scaladsl.server.Directives._
-import akka.stream.ActorMaterializer
 import com.typesafe.scalalogging.LazyLogging
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -20,7 +19,6 @@ import scala.concurrent.Future
   */
 object RestExtractor extends App with LazyLogging {
   implicit val system: ActorSystem = ActorSystem()
-  implicit val materializer: ActorMaterializer = ActorMaterializer()
 
   val route = get {
     pathSingleSlash {
@@ -33,7 +31,7 @@ object RestExtractor extends App with LazyLogging {
       path("stop") {
         Future {
           Thread.sleep(500)
-          materializer.shutdown()
+          system.terminate()
           logger.info("Stopped")
           sys.exit(0)
         }
@@ -41,7 +39,7 @@ object RestExtractor extends App with LazyLogging {
       }
   }
 
-  Http().bindAndHandle(route, "localhost", 8080)
+  Http().newServerAt("localhost", 8080).bind(route)
   println("Started. Try http://localhost:8080")
   logger.info("Started")
 

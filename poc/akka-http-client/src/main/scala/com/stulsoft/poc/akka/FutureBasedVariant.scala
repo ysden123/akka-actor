@@ -8,8 +8,7 @@ import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.model._
 import akka.http.scaladsl.unmarshalling.Unmarshal
-import akka.stream.ActorMaterializer
-import com.typesafe.scalalogging.LazyLogging
+import com.typesafe.scalalogging.StrictLogging
 
 import scala.concurrent.{ExecutionContextExecutor, Future}
 import scala.util.{Failure, Success}
@@ -20,16 +19,18 @@ import scala.util.{Failure, Success}
  *
  * @author Yuriy Stul
  */
-object FutureBasedVariant extends App with LazyLogging {
+object FutureBasedVariant extends App with StrictLogging {
   implicit val system: ActorSystem = ActorSystem()
-  implicit val materializer: ActorMaterializer = ActorMaterializer()
+
+  logger.info("==>main")
+
   // needed for the future flatMap/onComplete in the end
   implicit val executionContext: ExecutionContextExecutor = system.dispatcher
 
   val responseFuture: Future[HttpResponse] = Http().singleRequest(HttpRequest(uri = "https://www.smugmug.com/"))
 
   def exit(code: Int): Unit = {
-    materializer.shutdown()
+    system.terminate()
     sys.exit(code)
   }
 
@@ -44,7 +45,7 @@ object FutureBasedVariant extends App with LazyLogging {
         exit(0)
       case Failure(x) =>
         logger.error("something wrong", x)
-        materializer.shutdown()
+        system.terminate()
         exit(1)
     }
 }

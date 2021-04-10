@@ -4,22 +4,20 @@ import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.model._
 import akka.http.scaladsl.server.Directives._
-import akka.stream.ActorMaterializer
 import com.typesafe.scalalogging.LazyLogging
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 /**
-  * Tree matcher test 1.
-  *
-  * Demonstrates combinations with path parsing.
-  *
-  * Created by Yuriy Stul on 10/22/2016.
-  */
+ * Tree matcher test 1.
+ *
+ * Demonstrates combinations with path parsing.
+ *
+ * Created by Yuriy Stul on 10/22/2016.
+ */
 object TreeMatcher1 extends App with LazyLogging {
-  implicit val system:ActorSystem = ActorSystem()
-  implicit val materializer:ActorMaterializer = ActorMaterializer()
+  implicit val system: ActorSystem = ActorSystem()
   val route = get {
     pathSingleSlash {
       logger.info("Request for root page")
@@ -53,7 +51,7 @@ object TreeMatcher1 extends App with LazyLogging {
       path("stop") {
         Future {
           Thread.sleep(500)
-          materializer.shutdown()
+          system.terminate()
           logger.info("Stopped")
           sys.exit(0)
         }
@@ -61,7 +59,7 @@ object TreeMatcher1 extends App with LazyLogging {
       }
   }
 
-  Http().bindAndHandle(route, "localhost", 8080)
+  Http().newServerAt("localhost", 8080).bind(route)
   println("Started. Try http://localhost:8080")
   logger.info("Started")
 }
