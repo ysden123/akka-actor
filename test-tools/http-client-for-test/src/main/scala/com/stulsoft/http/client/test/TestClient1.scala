@@ -20,6 +20,7 @@ import scala.util.{Failure, Success}
  */
 object TestClient1 extends App with StrictLogging {
   implicit val system: ActorSystem[Nothing] = ActorSystem(Behaviors.empty, "TestClient1")
+
   // needed for the future flatMap/onComplete in the end
   implicit val executionContext: ExecutionContextExecutor = system.executionContext
 
