@@ -4,7 +4,7 @@ import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.model._
 import akka.http.scaladsl.server.Directives._
-import com.typesafe.scalalogging.LazyLogging
+import com.typesafe.scalalogging.{LazyLogging, StrictLogging}
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -14,7 +14,7 @@ import scala.concurrent.Future
   *
   * Created by Yuriy Stul on 10/21/2016.
   */
-object SyncHandlerExample2 extends App with LazyLogging {
+object SyncHandlerExample2 extends App with StrictLogging {
   implicit val system: ActorSystem = ActorSystem()
   val route = get {
     pathSingleSlash {

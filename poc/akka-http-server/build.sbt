@@ -1,14 +1,14 @@
 lazy val commonSettings = Seq(
   organization := "com.stulsoft",
-  version := "1.2.2",
-  scalaVersion := "2.13.5",
+  version := "1.2.3",
+  scalaVersion := "2.13.7",
   libraryDependencies ++= {
-    val akkaVersion = "2.6.13"
-    val akkaHttpVersion = "10.2.4"
-    val scalaLoggingVersion = "3.9.3"
+    val akkaVersion = "2.6.18"
+    val akkaHttpVersion = "10.2.7"
+    val scalaLoggingVersion = "3.9.4"
     lazy val typeSafeConfVersion = "1.4.1"
-    lazy val json4sVersion = "3.6.11"
-    lazy val loggingVersion = "2.14.1"
+    lazy val json4sVersion = "4.0.3"
+    lazy val loggingVersion = "2.17.0"
     Seq(
       "org.json4s" %% "json4s-native" % json4sVersion,
       "org.json4s" %% "json4s-jackson" % json4sVersion,
