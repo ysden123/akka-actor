@@ -6,17 +6,18 @@ package com.stulsoft.akka.http.server.extract
 
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
+import akka.http.scaladsl.marshalling.ToResponseMarshallable
 import akka.http.scaladsl.model._
 import akka.http.scaladsl.server.Directives._
-import com.typesafe.scalalogging.{LazyLogging, StrictLogging}
+import com.typesafe.scalalogging.StrictLogging
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 /** Extracts REST request parameters
-  *
-  * @author Yuriy Stul
-  */
+ *
+ * @author Yuriy Stul
+ */
 object RestExtractor extends App with StrictLogging {
   implicit val system: ActorSystem = ActorSystem()
 
@@ -26,7 +27,8 @@ object RestExtractor extends App with StrictLogging {
       getFromResource("index4.html", ContentTypes.`text/html(UTF-8)`)
     } ~
       path("addr1" / Segment / "addr2" / Segment) { (addr1Val, addr2Val) =>
-        complete(HttpEntity(ContentTypes.`text/html(UTF-8)`, response(s"addr1Val1 = $addr1Val, addr2Val1 = $addr2Val")))
+        complete(extract(addr1Val, addr2Val))
+        //                complete(HttpEntity(ContentTypes.`text/html(UTF-8)`, response(s"addr1Val1 = $addr1Val, addr2Val1 = $addr2Val")))
       } ~
       path("stop") {
         Future {
@@ -52,4 +54,9 @@ object RestExtractor extends App with StrictLogging {
     """.stripMargin
   }
 
+  private def extract(addr1Val: String, addr2val: String): ToResponseMarshallable = {
+    logger.info("==>extract")
+    Thread.sleep(1000)
+    HttpEntity(ContentTypes.`text/html(UTF-8)`, response(s"addr1Val = $addr1Val, addr2Val = $addr2val"))
+  }
 }
