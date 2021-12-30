@@ -17,6 +17,6 @@
             <AppenderRef ref="Console"/>
             <AppenderRef ref="File"/>
         </Root>
-<!--        <Logger name="org.mongodb" level="error"/>-->
+        <Logger name="akka.event" level="error"/>
     </Loggers>
 </Configuration>
